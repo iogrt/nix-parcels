@@ -10,7 +10,7 @@ pkgs.perlPackages.buildPerlPackage {
   buildInputs = with pkgs.pkgs.perlPackages; [ PodParser ];
   propagatedBuildInputs = with pkgs.pkgs.perlPackages; [ AppPackager FileLoadLines FileHomeDir IOString ImageInfo PDFAPI2 StringInterpolateNamed TextLayout ]
   ++ pkgs.lib.optionals (!pkgs.stdenv.isDarwin) [ Wx ];
-  nativeBuildInputs = pkgs.lib.optional pkgs.stdenv.isDarwin pkgs.shortenPerlShebang;
+  nativeBuildInputs = [wrapGAppsHook];
   postInstall = pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
       shortenPerlShebang $out/bin/chordpro
       rm $out/bin/wxchordpro # Wx not supported on darwin
